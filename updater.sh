@@ -24,7 +24,13 @@ cd "${steamcmddir}" || exit
 availablebuild=$(./steamcmd.sh +login "${steamuser}" +app_info_update 1 +app_info_print "${appid}" +quit | sed '1,/branches/d' | sed "1,/${branchname}/d" | grep -m 1 buildid | tr -cd '[:digit:]')
 
 if [ "${currentbuild}" != "${availablebuild}" ]; then
-    echo "telling masterserver to update!"
+    call=$(curl http://81.202.122.97:4000/master)
+    echo $call
+    cd "${rootdir}" || exit
+    ./csgoserver update
+    # hacer case si hay algún tipo de error con update etc blablalba
+    call=$(curl http://81.202.122.97:4000/master/updated)
+    echo $call
 else
     echo "no update available"
 fi
