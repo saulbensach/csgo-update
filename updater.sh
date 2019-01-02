@@ -12,6 +12,8 @@ fn_appmanifest_info(){
         appmanifestfilewc=$(find "${serverfiles}" -type f -name "appmanifest_${appid}.acf" | wc -l)
 }
 
+cat > log.txt
+
 while true
 do
     fn_appmanifest_info
