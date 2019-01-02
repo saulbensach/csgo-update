@@ -12,7 +12,7 @@ fn_appmanifest_info(){
         appmanifestfilewc=$(find "${serverfiles}" -type f -name "appmanifest_${appid}.acf" | wc -l)
 }
 
-cat > log.txt
+echo "===============LOG BEGIN============="
 
 while true
 do
@@ -29,16 +29,16 @@ do
 
     if [ "${currentbuild}" != "${availablebuild}" ]; then
         call=$(curl http://81.202.122.97:4000/master)
-        echo $call > $1 | tee -a log.txt
         cd "${rootdir}" || exit
         ./csgoserver update
         # hacer case si hay algún tipo de error con update etc blablalba
         call=$(curl http://81.202.122.97:4000/master/updated)
-        echo $call > $1 | tee -a log.txt
+        echo "server updated"
     else
-        echo "no update available" > $1 | tee -a log.txt
+        echo "no update available"
+        sleep 0.5
     fi
 
-    sleep 10
+    sleep 7
 done
 
