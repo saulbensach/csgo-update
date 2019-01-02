@@ -8,8 +8,8 @@ branch="public"
 branchname="public"
 
 fn_appmanifest_info(){
-        appmanifestfile=$(find "${serverfiles}" -type f -name "appmanifest_${appid}.acf")
-        appmanifestfilewc=$(find "${serverfiles}" -type f -name "appmanifest_${appid}.acf" | wc -l)
+    appmanifestfile=$(find "${serverfiles}" -type f -name "appmanifest_${appid}.acf")
+    appmanifestfilewc=$(find "${serverfiles}" -type f -name "appmanifest_${appid}.acf" | wc -l)
 }
 
 echo "===============LOG BEGIN============="
@@ -19,7 +19,7 @@ do
     fn_appmanifest_info
     currentbuild=$(grep buildid "${appmanifestfile}" | tr '[:blank:]"' ' ' | tr -s ' ' | cut -d\  -f3)
     if [ -f "${HOME}/Steam/appcache/appinfo.vdf" ]; then
-            rm -f "${HOME}/Steam/appcache/appinfo.vdf"
+        rm -f "${HOME}/Steam/appcache/appinfo.vdf"
     fi
     # Set branch for updateinfo
 
