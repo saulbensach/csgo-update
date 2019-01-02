@@ -27,16 +27,16 @@ do
 
     if [ "${currentbuild}" != "${availablebuild}" ]; then
         call=$(curl http://81.202.122.97:4000/master)
-        echo $call
+        echo $call > $1 | tee -a log.txt
         cd "${rootdir}" || exit
         ./csgoserver update
         # hacer case si hay algún tipo de error con update etc blablalba
         call=$(curl http://81.202.122.97:4000/master/updated)
-        echo $call
+        echo $call > $1 | tee -a log.txt
     else
-        echo "no update available"
+        echo "no update available" > $1 | tee -a log.txt
     fi
-    
+
     sleep 10
 done
 
