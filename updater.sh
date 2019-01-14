@@ -31,6 +31,8 @@ do
         if [ "${currentbuild}" != "${availablebuild}" ]; then
             l1=$currentbuild | wc -c
             l2=$availablebuild | wc -c
+            # Esperemos que el tamaño del id no cambie así de rápido porq si no me va a destrozar mucho código
+            # Segun steamdc el buildid es incremental 
             if [ "$l1" = "$l2" ]; then
                 echo "updated detected!"
                 echo "Currentbuild: $currentbuild"
@@ -41,6 +43,11 @@ do
                 # hacer case si hay algún tipo de error con update etc blablalba
                 call=$(curl http://81.202.122.97:4000/master/updated)
                 echo "server updated"
+            else 
+                #enviar alerta servidores
+                #por email
+                echo "something went wrong not updating"
+                sleep 0.5
             fi
         else
             echo "no update available"
