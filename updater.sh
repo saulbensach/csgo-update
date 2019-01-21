@@ -6,6 +6,8 @@ steamcmddir="${rootdir}/steamcmd"
 steamuser="anonymous"
 branch="public"
 branchname="public"
+telegram_token="686844479:AAElYq2toAInYN_DOsFIyDhA0hv8vDVssLk"
+group_id="-384348538"
 
 fn_appmanifest_info(){
     appmanifestfile=$(find "${serverfiles}" -type f -name "appmanifest_${appid}.acf")
@@ -35,17 +37,21 @@ do
             # Segun steamdc el buildid es incremental 
             if [ "$l1" = "$l2" ]; then
                 echo "updated detected!"
+                $(curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$group_id -d text="%E2%9A%A0 Server updated detected %E2%9A%A0")
                 echo "Currentbuild: $currentbuild"
                 echo "Availablebuild: $availablebuild"
-                call=$(curl http://81.202.122.97:4000/master)
+                call=$(curl http://81.202.122.97:4000/update/start_update)
                 cd "${rootdir}" || exit
                 ./csgoserver update
                 # hacer case si hay algún tipo de error con update etc blablalba
-                call=$(curl http://81.202.122.97:4000/master/updated)
+                call=$(curl http://81.202.122.97:4000/update/finish_update)
+                $(curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$group_id -d text="%E2%98%BA Server update when nice :D %E2%98%BA")
                 echo "server updated"
             else 
                 #enviar alerta servidores
                 #por email
+                $(curl -X POST https://maker.ifttt.com/trigger/bad_csgo_update/with/key/cjSF_A32gqR1pfDtfgBqLE)
+                $(curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$group_id -d text="%F0%9F%9A%A8 Updated failed something happened come to me %F0%9F%9A%A8")
                 echo "something went wrong not updating"
                 sleep 0.5
             fi
