@@ -40,11 +40,11 @@ do
                 $(curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$group_id -d text="%E2%9A%A0 Server updated detected %E2%9A%A0")
                 echo "Currentbuild: $currentbuild"
                 echo "Availablebuild: $availablebuild"
-                call=$(curl http://81.202.122.97:4000/update/start_update)
+                call=$(curl http://35.246.176.96:4000/update/start_update)
                 cd "${rootdir}" || exit
                 ./csgoserver update
                 # hacer case si hay algún tipo de error con update etc blablalba
-                call=$(curl http://81.202.122.97:4000/update/finish_update)
+                call=$(curl http://35.246.176.96:4000/update/finish_update)
                 $(curl -s -X POST https://api.telegram.org/bot$telegram_token/sendMessage -d chat_id=$group_id -d text="%E2%98%BA Server update when nice :D %E2%98%BA")
                 echo "server updated"
             else 
