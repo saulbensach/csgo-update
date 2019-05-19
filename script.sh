@@ -17,8 +17,18 @@ else
                         *) echo "hola" ;;
                 esac
         done
+
+        while true; do
+                output=$(curl "http://$node_ip:$node_port/server/$lobby_token" --write '\n%{http_code}\n' --fail --silent)
+                return_code=$?
+                if [ 0 -eq $return_code ]; then
+                        break
+                else
+                        echo "unable to connect to node: code=$output"
+                        sleep 1
+                fi
+        done
+        
         echo "Server started"
-        # Tell senpai i'm online :D
-        result=$(curl "http://$node_ip:$node_port/server/$lobby_token")
-        echo $result
+        echo "$output" | sed '$d' | jq .
 fi
