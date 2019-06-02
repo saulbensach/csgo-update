@@ -7,8 +7,8 @@ if [ $is_master = true ] ; then
 else
         echo "eres secundario"
         lobby_token=$(curl "$gcurl/lobby_token" -H "Metadata-Flavor: Google")
-        node_ip=$(curl "$gcurl//node_ip" -H "Metadata-Flavor: Google")
-        node_port=$(curl "$gcurl//node_port" -H "Metadata-Flavor: Google")       
+        node_ip=$(curl "$gcurl/node_ip" -H "Metadata-Flavor: Google")
+        node_port=$(curl "$gcurl/node_port" -H "Metadata-Flavor: Google")       
         while true; do  
                 result=$(./csgoserver details | grep Status | tail -1 | cut -f2 | sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g")
                 case "$result" in
