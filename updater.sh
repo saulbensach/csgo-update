@@ -9,7 +9,7 @@ steamcmddir="${rootdir}/steamcmd"
 steamuser="anonymous"
 branch="public"
 branchname="public"
-telegram_token="686844479:AAElYq2toAInYN_DOsFIyDhA0hv8vDVssLk"
+telegram_token=""
 group_id="-384348538"
 
 fn_appmanifest_info(){
